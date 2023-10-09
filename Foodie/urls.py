@@ -2,7 +2,7 @@ from django import views
 from django.contrib import admin
 from django.urls import path
 from Foodie.views import EsewaRequestView, EsewaVerifyView
-from myapp.views import contact_view, delete_cart_item, home,add_to_cart, login_view, logout_view,FoodItem, menu, paymentsuccess,signup,cart, go_to_cart,checkout_view,checkout, verify_payment
+from myapp.views import contact_view,delete_cart_item, cart_delete,cart_inc,cart_dec, home,add_to_cart, login_view, logout_view,FoodItem, menu, paymentsuccess,signup,cart, go_to_cart,checkout_view,checkout, verify_payment
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -18,6 +18,12 @@ urlpatterns = [
     path('logout/',logout_view,name='logout'),
     path('signup/',signup,name='signup'),
     path('cart/',cart,name='cart'),
+    path('cart/delete/<int:id>/',cart_delete,name='cart_delete'),
+    path('cart/inc/<int:id>/',cart_inc,name='cart_inc'),
+    path('cart/dec/<int:id>/',cart_dec,name='cart_dec'),
+
+
+    
     path('go_to_cart/',go_to_cart,name='go_to_cart'),
     path('checkout_view/', checkout_view, name='checkout_view'),
     path("esewa-request/", EsewaRequestView.as_view(), name="esewarequest"),

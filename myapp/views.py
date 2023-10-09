@@ -144,12 +144,13 @@ def cart(request):
 
     total_price = 0
     for item in cart_items:
-        total_price += item.product.price * item.product.quantity
+        total_price += item.product.price * item.qunatity
 
 
     #################
     context = {
-        "cart_items": cart_items
+        "cart_items": cart_items,
+        'total_price':total_price 
     }
 
     if request.user.is_authenticated:
@@ -160,6 +161,23 @@ def cart(request):
         context['cart_quantity'] = str(qty)
     ####################
     return render(request, 'cart.html', context)
+
+def cart_delete(request, id):
+    cart_item = Cart.objects.get(id=id)
+    cart_item.clear_cart()
+    return redirect('cart')
+
+
+def cart_inc(request, id):
+    cart_item = Cart.objects.get(id=id)
+    cart_item.increment()
+    return redirect('cart')
+
+def cart_dec(request, id):
+    cart_item = Cart.objects.get(id=id)
+    cart_item.decrement()
+    return redirect('cart')
+
 
 
 all_cart_items = []
