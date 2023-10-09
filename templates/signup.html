@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<!-- <link rel="stylesheet" type="text/css" href="slide navbar style.css"> -->
+<link rel="stylesheet" href={% static 'signup.css' %}>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+
+{% endblock %}
+{% block content %}
+
+    <div class="main">  
+        {% if error_message %}
+            <p class="error" style="color: red;">{{ error_message }}</p>
+        {% endif %}	
+
+			<div class="signup">
+                    <form method="POST" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        <label for="chk" aria-hidden="true">SIGN UP</label>
+                        <input type="text" name="username" placeholder="user name" required="">
+                        <input type="email" name="email" placeholder="Email" required>
+                        <input type="password" name="password" placeholder="password" required="">
+                        <input type="password" name="cpassword" placeholder="confirm password" required="">
+                        <button type="submit">Sign Up</button>
+                    </form>
+			</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<!--  -->
+<h2 class="section">All Products</h2>
+	<div id="foods">
+		{% for food in food_items %}
+		<div class="food">
+			<img src={{ food.image.url }} alt="Image">
+			<p class="food-name">{{food.name}}</p>
+			<p class="food-price">Rs {{food.price}}</p>
+			<button type="submit" class="add-to-cart" id={{food.id}}> <a href="/add_to_cart/{{food.id}}/">ADD TO CART</a> </button>
+		</div>
+		{% endfor %}
+	</div>
+  <!--  -->
+{% endblock %}

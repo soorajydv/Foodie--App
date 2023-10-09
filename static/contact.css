@@ -1,0 +1,56 @@
+.heading-section{
+    text-align: center;
+    margin: 1rem ;
+}
+
+.container{
+    margin: 2rem;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.title{
+    font-size :1.8rem;
+    text-align: center;
+    text-transform: uppercase;
+    color: red;
+}
+
+form{
+    font-size: 1rem;
+    padding-left: 30%;
+}
+
+.form-group{
+    margin: .8rem 0;
+}
+
+label{
+    display: block;
+}
+
+input,textarea{
+    font-size: 1.1rem;
+padding: 6px;
+border-radius: 5px;
+width: 30vw;
+}
+
+.btn-send-message{
+    border: 3px solid rgb(206, 43, 43);
+
+    color:white;
+    background-color: red;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-send-message:hover{
+    background-color: rgb(122, 21, 21);
+}
+
+.map{
+    /* margin-top: 3rem; */
+    border: 3px solid grey;
+    /* border-radius: 1rem; */
+}
+

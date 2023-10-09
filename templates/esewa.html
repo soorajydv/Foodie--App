@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="http://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST">
+        <br>
+        <label>Amount of product</label>
+        <input value="100" name="tAmt" type="hidden">
+        <br>
+        <label>Tax amount applied on product</label>
+        <input value="90" name="amt" type="hidden">
+        <br>
+        <label>Total payment amount</label>
+        <input value="5" name="txAmt" type="hidden">
+        <br>
+        <label>A unique ID of product, should be unique on every request</label>
+        <input value="2" name="psc" type="hidden">
+        <br>
+        <label>Merchant code provided by eSewa</label>
+        <input value="3" name="pdc" type="hidden">
+        <input type="text" id="product_code" name="product_code" value="EPAYTEST" required>
+        <br>
+        <label>Service charge by merchant on product</label>
+        <input value="EPAYTEST" name="scd" type="hidden">
+        <br>
+        <label>Delivery charge by merchant on product</label>
+        <input type="text" id="product_delivery_charge" name="product_delivery_charge" value="65" required>
+        <br>
+        <label>On Sucess</label>
+        <input type="text" id="success_url" name="success_url" value="https://fb.com" required>
+        <br>
+        <label>On Failure</label>
+        <input type="text" id="failure_url" name="failure_url" value="https://google.com" required>
+        <br>
+        <label>Unique field names to be sent which is used for generating signature</label>
+        <input type="text" id="signed_field_names" name="signed_field_names"
+            value="amount,total_amount,transaction_uuid,product_code" required>
+        <br>
+        <label>hmac signature generated through above process</label>
+        <input type="text" id="signature" name="signature">
+        <br>
+        <input value=" Submit" type="submit">
+    </form>
+</body>
+
+</html>

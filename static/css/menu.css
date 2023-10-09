@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url('background.jpg'); /* Replace with your blurred background image */
+    background-size: cover;
+    background-blur: 5px; /* Adjust the blur amount as needed */
+    color: white;
+}
+
+header {
+    background: linear-gradient(to bottom, #ff7f00, #ff4f00); /* Customize gradient colors */
+    text-align: center;
+    padding: 20px 0;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.menu-item {
+    background: rgba(0, 0, 0, 0.5); /* Adjust the background opacity as needed */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+    width: calc(25% - 40px); /* 4 columns with spacing */
+    box-sizing: border-box;
+}
+
+.menu-item img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.item-details h2 {
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.item-details p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.add-to-cart {
+    background-color: #ff7f00; /* Customize button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart:hover {
+    background-color: #ff4f00; /* Customize hover color */
+}

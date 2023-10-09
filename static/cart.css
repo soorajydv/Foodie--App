@@ -1,0 +1,30 @@
+
+    .gradient-custom {
+      /* fallback for old browsers */
+      background: whitesmoke;
+    }
+
+      .checkout {
+        background-color: #007bff;
+      }
+
+      .checkout:hover {
+        background-color: #085cb7;
+      }
+
+      .remove {
+        background-color: red;
+      }
+
+      .remove:hover {
+        background-color: rgb(133, 7, 7);
+      }
+
+      .add {
+        background-color: green;
+      }
+
+      .add:hover {
+        background-color: rgb(22, 98, 22);
+      }
+    

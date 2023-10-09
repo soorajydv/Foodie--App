@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href={% static 'home.css' %}>
+	<link rel="stylesheet" href={% static 'grid-items.css' %}>
+	<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap" rel="stylesheet">
+	<style>
+		.landing-page {
+			background-image: url(static/images/landing.jpg);
+			width: 100vw;
+			height: 90vh;
+			background-position: center;
+			background-size: cover;
+		}
+	</style>
+{% endblock %}
+{% block content %}
+	
+	<hr>
+	<div class="landing-page">
+	</div>
+	<h2 class="section">Featured Products</h2>
+	<div id="foods">
+		{% for food_item in food_items %}
+		<div class="food">
+			<img src="{{ food_item.image.url }}" alt="Image">
+			<p class="food-name">{{food_item.name}}</p>
+			<p class="food-price">Rs {{food_item.price}}</p>
+			<button type="submit" class="add-to-cart" id={{food_item.id}}> <a href="add_to_cart/{{food_item.id}}/">ADD TO CART</a> </button>
+		</div>
+		{% endfor %}
+	</div>
+	<hr style="margin:2rem 0;height: 2px; background-color: grey;">
+	<footer>Copyright © 2020-2021 OnlineFoodShop.
+		All Rights are reserved</footer>
+
+	<script src="{% static 'cart.js' %}"></script>
+
+	<!-- Include the checkout.js script -->
+	<!-- <script src="{% static 'checkout.js' %}"></script> -->
+{% endblock %}

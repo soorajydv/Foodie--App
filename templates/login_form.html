@@ -1,0 +1,8 @@
+{% load static %}
+<!-- login_form.html -->
+<form method="POST" action="{% url 'login' %}">
+    <!-- Add your login form fields here -->
+    {% csrf_token %}
+    <button type="submit">Login</button>
+  </form>
+  

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href={% static 'checkout.css' %}>
+{% endblock %}
+{% block content %}
+  <title>Checkout Form</title>
+  <div class="form-container">
+    <h2>Checkout Form</h2>
+    <form method="post" action="{% url 'checkout' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn" id="payment-button btn" type="submit">Submit</button>
+    </form>
+  </div>
+
+<script>
+  function verifyPayment(payload) {
+    $.ajax({
+      url: "{% url 'verify_payment' %}",
+      type: "POST",
+      data: payload,
+      dataType: 'json',
+      success: function (response) { alert(response) },
+      error: function (error) { alert(error.responseJSON['message']) }
+    });
+  }
+
+  var config = {
+    // replace the publicKey with yours
+    "publicKey": "test_public_key_14b546a4914048cab7db3a6d108342c7",
+    "productIdentity": "1234567890",
+    "productName": "Dragon",
+    "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+    "eventHandler": {
+      onSuccess(payload) {
+        // hit merchant api for initiating verfication
+        console.log(payload);
+        verifyPayment(payload)
+      },
+      onError(error) {
+        console.log(error);
+      },
+      onClose() {
+        console.log('widget is closing');
+      }
+    }
+  };
+
+  var checkout = new KhaltiCheckout(config);
+  var btn = document.getElementById("payment-button");
+  btn.onclick = function () {
+    checkout.show({ amount: 1000 });
+  }
+</script>
+{% comment %} dynamic_total_price {% endcomment %}
+{% endblock %}

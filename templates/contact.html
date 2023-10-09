@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<link rel="stylesheet" href={% static 'contact.css' %}>
+{% endblock %}
+
+{% block content %}
+<section class="container">
+	<h2 class="title">Connect With Us</h2>
+
+
+
+
+	<form method="POST">
+		{% csrf_token %}
+
+		<div class="form-group">
+			<label class="label" for="name">Full Name</label>
+			<input type="text" class="form-control" name="name" id="name" placeholder="John Doe">
+		</div>
+
+		<div class="form-group">
+			<label class="label" for="email">Email Address</label>
+			<input type="email" class="form-control" name="email" id="email" placeholder="yourmail@domain.com">
+		</div>
+
+
+		<div class="form-group">
+			<label class="label" for="subject">Phone</label>
+			<input type="number" class="form-control" name="phone" id="subject" placeholder="98xxxxxxxx">
+		</div>
+
+
+		<div class="form-group">
+			<label class="label" for="#">Message</label>
+			<textarea name="message" class="form-control" id="message" cols="30" rows="4"
+				placeholder="Message"></textarea>
+		</div>
+
+
+		<div class="form-group">
+			<input type="submit" value="Send Message" class="btn-send-message">
+
+		</div>
+
+
+	</form>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h2 class="title">our location</h2>
+	<div class="map">
+		<div class="gmap_canvas"><iframe class="gmap_iframe" width="100%" frameborder="0" scrolling="no"
+				marginheight="0" marginwidth="0"
+				src="https://maps.google.com/maps?width=287.5&amp;height=591.8&amp;hl=en&amp;q=Nepal Engineering College,Changunarayan&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a
+				href="https://connectionsgame.org/">Connections NYT</a></div>
+		<style>
+			.mapouter {
+				position: relative;
+				text-align: right;
+				width: 100%;
+				height: 591.8px;
+			}
+
+			.gmap_canvas {
+				overflow: hidden;
+				background: none !important;
+				width: 100%;
+				height: 591.8px;
+			}
+
+			.gmap_iframe {
+				height: 591.8px !important;
+			}
+		</style>
+
+	</div>
+</section>
+
+
+{% endblock %}
+
+
+
