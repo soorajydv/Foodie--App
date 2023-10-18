@@ -1,28 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+    body{
+        height: 100vh;
+        background-color: aqua;
+    }
+h1{
+    text-align: center;
+}
+input{
+    width: 15%;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+form{
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+</style>
+{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>esewa payment</h1>
-   
-        <form action="https://uat.esewa.com.np/epay/main" method="POST">
-        <input value="100" name="tAmt" type="hidden">
-        <input value="90" name="amt" type="hidden">
-        <input value="5" name="txAmt" type="hidden">
-        <input value="2" name="psc" type="hidden">
-        <input value="3" name="pdc" type="hidden">
-        <input value="EPAYTEST" name="scd" type="hidden">
-        <input value="{{ uid }}" name="pid" type="hidden">
-        <input value="http://localhost:8000/paymentsuccess?q=su" type="hidden" name="su">
-        <input value="http://merchant.com.np/page/esewa_payment_failed?q=fu" type="hidden" name="fu">
-        
-
-        <input value="Pay via ESewa" type="submit">
-        </form>
-   
-</body>
-</html>
+{% block content %}
+<h1>esewa payment</h1>
+<form action="https://uat.esewa.com.np/epay/main" method="POST">
+    <input value="{{ total }}" name="tAmt" type="hidden">
+    <input value="{{ total }}" name="amt" type="hidden">
+    <input value="0" name="txAmt" type="hidden">
+    <input value="0" name="psc" type="hidden">
+    <input value="0" name="pdc" type="hidden">
+    <input value="EPAYTEST" name="scd" type="hidden">
+    <input value="{{ uid }}" name="pid" type="hidden">
+    <input value="http://localhost:8000/paymentsuccess/<int:order_id>" type="hidden" name="su">
+    <input value="http://merchant.com.np/page/esewa_payment_failed?q=fu" type="hidden" name="fu">
+    <input value="Pay via ESewa" type="submit">
+</form>
+{% endblock %}

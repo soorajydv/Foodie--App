@@ -4,5 +4,5 @@ from .models import Order
 class CheckoutForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ["ordered_by", "shipping_address",
+        fields = ["shipping_address",
                   "mobile", "email", "payment_method"]

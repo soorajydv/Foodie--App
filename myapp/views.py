@@ -1,14 +1,10 @@
-from audioop import reverse
-
-from django.views import View
 from .models import Order
 from django.shortcuts import get_object_or_404, render, redirect
 import json
-from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-import requests
 from .models import FeatureProduct, FoodItem, Cart, contact
 from django.contrib.auth.models import User
 from .forms import CheckoutForm
@@ -200,14 +196,9 @@ def go_to_cart(request):
         all_cart_items = []
     # return render(request, 'cart.html', {'cart_items':[{'name':'One'},{'name':'Two'}]} )
     return render(request, 'cart.html', {'cart_items': cart_items})
-
-
-
-
     # store order information(checkout form)
 
 import uuid
-
 def checkout_view(request):
     #fetching total amount
     user = User.objects.get(id=request.user.id)
@@ -215,59 +206,53 @@ def checkout_view(request):
     products = [item.product.price for item in cart_items]
     total_amount = sum(products)
     url = "https://uat.esewa.com.np/epay/transrec"
-
     data = {
         'amt':total_amount,
         'scd':'EPAYTEST',
         'rid':"refid"+str(user.id),  # user.id is initial use oredr id for specific order
-    
         'pid': uuid.uuid4()
     }
 
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
-            
-            return render(request, 'esewa.html', {'total_amount':total_amount})
-            # Process the form data here (e.g., save to the database)
-            # Redirect or perform other actions after successful submission
-    
+            print('validdddddddddd')
+            return render(request, 'esewarequest.html', {'total_amount':total_amount})
     form = CheckoutForm()
-
-    #########
     context = {'form': form, 'dynamic_total_amount':total_amount}
 
     if request.user.is_authenticated:
         user_id = request.user.id
         products = Cart.objects.filter(user=user_id, isClear=False)
-
         qty = len(list(products))
         context['cart_quantity'] = str(qty)
-    #######
     return render(request, 'checkout.html', context )
 
 
+from django.contrib.auth.decorators import login_required  # Import this decorator if it's not already imported.
+@login_required
 def checkout(request):
     if request.method == 'POST':
         print('Post req')
         form = CheckoutForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
+            option = form.cleaned_data['']
 
-            # Retrieve the total amount from the hidden input field
-            total_amount = request.POST.get('order_total', 0)
-            order.total = total_amount
+            # Set the user for the order
+            order.ordered_by = request.user
 
-            # You can set other fields here, e.g., user, cart, etc.
-            order.user = request.user  # If you have user authentication
+            cart_items = Cart.objects.filter(user=request.user, isClear=False)
+            products = [item.product.price for item in cart_items]
+            total_amount = sum(products)
 
             order.save()
             print('Order Saved')
+            print(total_amount)
             uid = uuid.uuid4()
             print(uid)
 
-            # Redirect to a confirmation page or another URL
-            return render(request, 'esewarequest.html', {'uid':uid})
+            return render(request, 'esewarequest.html', {'uid': uid, 'total': total_amount})
         else:
             print('Form is Invalid')
 
@@ -276,7 +261,10 @@ def checkout(request):
     return render(request, 'checkout.html', {'form': form})
 
 
+
 # Views for cart
+from django.contrib.auth.decorators import login_required
+@login_required(login_url='/login')
 def add_to_cart(request, product_id):
     if request.user.is_authenticated:
         user_id = request.user.id
@@ -311,6 +299,7 @@ def verify_payment(self,request):
         q = request.GET.get('q')
         print(request.GET)
         d = {
+            'q': request.GET.get('q'),
             'amt':request.GET.get('amt'),
             'scd': 'EPAYTEST',
             'rid':  request.GET.get('refId'),
@@ -324,18 +313,24 @@ def verify_payment(self,request):
         else:
             raise Http404()
 
-def paymentsuccess(request):
-     #########
-    context = {}
+# views.py
+from django.http import HttpResponse, Http404
+from .models import Order
 
+def paymentsuccess(request, oid):
     if request.user.is_authenticated:
-        user_id = request.user.id
-        products = Cart.objects.filter(user=user_id, isClear=False)
+        try:
+            order = Order.objects.get(id=oid)
+        except Order.DoesNotExist:
+            return HttpResponse('Order not found')
 
-        qty = len(list(products))
-        context['cart_quantity'] = str(qty)
-    #######
-    return render (request,'paymentsuccess.html', context)
+        context = {
+            'order': order,
+        }
+        return render(request, 'paymentsuccess.html', context)
+    else:
+        return HttpResponse('User not authenticated')
+
 
 # views.py
 # cart/views.py

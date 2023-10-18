@@ -1,7 +1,113 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+h1{
+    text-align: center;
+}
+input{
+    width: 20%;
+    text-align: center;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
+.receipt {
+    margin: 1rem 5rem 0rem 9rem;
+    justify-content: center;
+    width: 80%;
+    /* margin: 0 auto; */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.header {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.content {
+    padding: 20px;
+}
+
+.customer-info {
+    margin-bottom: 20px;
+}
+
+.items table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.items th, .items td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.items th {
+    background-color: #f4f4f4;
+}
+
+.total {
+    text-align: right;
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+</style>
+{% endblock %}
 {% block content %}
-
+<br>
     <h1>Payment Successful</h1>
+    <!-- <a href="{% url 'paymentsuccess' order_id=order.id %}">Payment Success</a> -->
+    <!-- Assuming 'order' is the order object passed to the template -->
+<!-- <a href="{% url 'paymentsuccess' order.id %}">Payment Success for Order #{{ order.id }}</a> -->
 
+    <div class="receipt">
+        <div class="header">
+            <h1>Receipt</h1>
+        </div>
+        <div class="content">
+            <div class="customer-info">
+                <p><strong>Customer:</strong> {{ order.ordered_by }}</p>
+                <p><strong>Address:</strong> {{ order.shipping_address }}</p>
+            </div>
+            <div class="items">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Item 1</td>
+                            <td>2</td>
+                            <td>$10.00</td>
+                            <td>$20.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="total">
+                <p><strong>Total:</strong> $35.00</p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
